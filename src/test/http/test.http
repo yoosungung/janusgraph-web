@@ -1,0 +1,7 @@
+###
+POST http://localhost:8080/api/query/submit
+Content-Type: application/json
+
+{
+  "query": "mgmt = graph.openManagement()\nmgmt.printSchema()"
+}
