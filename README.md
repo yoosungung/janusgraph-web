@@ -1,0 +1,1 @@
+# Visual App for JanusGraph

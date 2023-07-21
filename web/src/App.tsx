@@ -1,18 +1,32 @@
 import * as React from "react"
-import {
-  ChakraProvider,
-  Box,
-  Grid,
-  theme,
-} from "@chakra-ui/react"
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
+import {ChakraProvider, theme, Grid, GridItem} from "@chakra-ui/react"
 
-export const App = () => (
-  <ChakraProvider theme={theme}>
-    <Box textAlign="center" fontSize="xl">
-      <Grid minH="100vh" p={3}>
-        <ColorModeSwitcher justifySelf="flex-end" />
-      </Grid>
-    </Box>
-  </ChakraProvider>
-)
+import {SearchGraph} from "./components/SearchGraph"
+import {VisualGraph} from "./components/VisualGraph"
+import {DetailGraph} from "./components/DetailGraph"
+
+export function App() {
+    return (
+        <ChakraProvider theme={theme}>
+            <Grid
+                templateAreas={`"header header"
+                              "main detail"`}
+                gridTemplateRows={'50px 1fr'}
+                gridTemplateColumns={'1fr 300px'}
+                fontWeight='bold'
+            >
+                <GridItem p={1} area={'header'}>
+                    <SearchGraph/>
+                </GridItem>
+                <GridItem p={1}  area={'main'}>
+                    <VisualGraph/>
+                </GridItem>
+                <GridItem p={1} area={'detail'}>
+                    <DetailGraph/>
+                </GridItem>
+            </Grid>
+        </ChakraProvider>
+    )
+}
+
+

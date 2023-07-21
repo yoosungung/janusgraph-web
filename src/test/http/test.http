@@ -1,7 +1,122 @@
 ###
-POST http://localhost:8080/api/query/submit
+GET http://localhost:8080/api/traversal/schema
+Content-Type: application/json
+###
+GET http://localhost:8080/api/traversal/schema/vertex/person
+Content-Type: application/json
+###
+GET http://localhost:8080/api/traversal/schema/edge/belong
+Content-Type: application/json
+
+####
+POST http://localhost:8080/api/traversal/vertex
 Content-Type: application/json
 
 {
-  "query": "mgmt = graph.openManagement()\nmgmt.printSchema()"
+  "label": "organization",
+  "name": "윤석열정부",
+  "start": "2022-05-10",
+  "end": "2027-05-09",
+  "sortOf": "대한민국정부",
+  "linkUrl": "https://ko.wikipedia.org/wiki/윤석열정부"
 }
+###
+//{
+//  "id": 4096,
+//  "label": "organization"
+//}
+####
+POST http://localhost:8080/api/traversal/vertex
+Content-Type: application/json
+
+{
+  "label": "person",
+  "name": "원희룡",
+  "start": "1964-02-14",
+  "sortOf": "정치인",
+  "role": "국토교통부장관",
+  "linkUrl": "https://ko.wikipedia.org/wiki/원희룡"
+}
+###
+#{
+#  "id": 4344,
+#  "label": "person"
+#}
+###
+POST http://localhost:8080/api/traversal/vertex
+Content-Type: application/json
+
+{
+  "label": "person",
+  "name": "김건희",
+  "start": "1972-09-02",
+  "sortOf": "부인",
+  "role": "대통령영부인",
+  "linkUrl": "https://ko.wikipedia.org/wiki/김건희"
+}
+###
+#{
+#  "id": 4128,
+#  "label": "person"
+#}
+###
+GET http://localhost:8080/api/traversal/vertex/organization
+Content-Type: application/json
+###
+GET http://localhost:8080/api/traversal/vertex/organization?name=윤석열정부
+Content-Type: application/json
+###
+GET http://localhost:8080/api/traversal/vertex/4096/value
+Content-Type: application/json
+
+####
+POST http://localhost:8080/api/traversal/edge
+Content-Type: application/json
+
+{
+  "label": "belong",
+  "outV": 4344,
+  "inV": 4096,
+  "start": "2022-05-10",
+  "role": "국토교통부장관",
+  "linkUrl": "https://ko.wikipedia.org/wiki/대한민국의_국토교통부_장관"
+}
+###
+POST http://localhost:8080/api/traversal/edge
+Content-Type: application/json
+
+{
+  "label": "belong",
+  "outV": 4344,
+  "inV": 4128,
+  "start": "2022-05-10",
+  "role": "머슴"
+}
+###
+POST http://localhost:8080/api/traversal/edge
+Content-Type: application/json
+
+{
+  "label": "belong",
+  "outV": 4128,
+  "inV": 4096,
+  "start": "2012-03-11",
+  "role": "부인",
+  "linkUrl": "https://ko.wikipedia.org/wiki/김건희"
+}
+###
+GET http://localhost:8080/api/traversal/edge/4344/in
+###
+GET http://localhost:8080/api/traversal/edge/4096/out
+###
+GET http://localhost:8080/api/traversal/edge/4128/out
+###
+GET http://localhost:8080/api/traversal/edge/35w-36o-6c5-35s/value
+
+###
+POST http://localhost:8080/api/client/submit
+
+JanusGraphManagement management = graph.openManagement();
+management.printSchema();
+###
+POST http://localhost:8080/api/client/schema/init
