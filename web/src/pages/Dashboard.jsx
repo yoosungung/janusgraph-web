@@ -55,8 +55,9 @@ export default function Dashboard() {
   )
 }
 
-export const tasksLoader = async () => {
-  const res = await fetch('http://localhost:5173/data/tasks')
-
-  return res.json()
+export const vertexLoader = async () => {
+  // const res = await fetch('/api/person')
+  //
+  // return res.json()
+  return []
 }

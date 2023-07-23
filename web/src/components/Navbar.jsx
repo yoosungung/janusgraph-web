@@ -16,16 +16,16 @@ export default function Navbar() {
 
   return (
     <Flex as="nav" p="10px" mb="60px" alignItems="center">
-      <Heading as="h1" fontSize="1.5em">Dojo Tasks</Heading>
+      <Heading as="h1" fontSize="1.5em">CANDIDATE.WIN</Heading>
       <Spacer />
 
       <HStack spacing="20px"> 
-        <Avatar name="mario" src="/img/mario.png">
+        <Avatar name="admin" src="/imgs/free-icon-thumb-up-2618507.png">
           <AvatarBadge width="1.3em" bg="teal.500">
             <Text fontSize="xs" color="white">3</Text>
           </AvatarBadge>
         </Avatar>
-        <Text>mario@netninja.dev</Text>
+        <Text>admin@candidate.win</Text>
         <Button 
           colorScheme="purple"
           onClick={() => toast({

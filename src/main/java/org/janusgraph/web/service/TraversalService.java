@@ -10,10 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class TraversalService {
@@ -35,12 +32,27 @@ public class TraversalService {
         s.append("{");
         s.append("\"label\":\"").append(label).append("\",");
         s.append("\"name\":\"String\",");
+        if("person".equals(label)) {
+            s.append("\"avatarUrl\":\"String\"");
+        }
         s.append("\"start\":\"Date\",");
-        s.append("\"end\":\"Date\",");
+        if("person".equals(label) || "organization".equals(label)) {
+            s.append("\"end\":\"Date\",");
+        }
         s.append("\"sortOf\":\"String\",");
-        s.append("\"role\":\"String\",");
+        if("person".equals(label) || "organization".equals(label)) {
+            s.append("\"role\":\"String\",");
+        }
         s.append("\"summary\":\"String\",");
         s.append("\"linkUrl\":\"String\"");
+        if("writing".equals(label) || "subject".equals(label)) {
+            s.append(",\"moralityIndex\":\"Float\",");
+            s.append("\"performanceIndex\":\"Float\",");
+            s.append("\"communicationIndex\":\"Float\",");
+            s.append("\"ConsistencyIndex\":\"Float\",");
+            s.append("\"ClassismIndex\":\"Float\",");
+            s.append("\"JEIndex\":\"Float\"");
+        }
         s.append("}");
         return s.toString();
     }
@@ -135,20 +147,30 @@ public class TraversalService {
     }
 
     public Map<Object, Object> valuesVertexById(String id) {
+        return valuesVertexById(Long.parseLong(id));
+    }
+    public Map<Object, Object> valuesVertexById(Long id) {
         Map<Object, Object> map = new HashMap<>();
-        Vertex v = g.V(Long.parseLong(id)).next();
+        Vertex v = g.V(id).next();
         map.put("id", v.id());
         map.put("label", v.label());
-        map.putAll(g.V(Long.parseLong(id)).valueMap().next());
+        map.putAll(g.V(id).valueMap().next());
         return map;
     }
+    public List<Map<Object, Object>> valyeVertexByIdlist(List<Long> idList) {
+        List<Map<Object, Object>> result = new ArrayList<>();
+        for(Long id : idList) {
+            result.add(valuesVertexById(id));
+        }
+        return result;
+    }
 
-    public Vertex findVertexByParams(String label, Map<String, String> params) {
+    public List<Vertex> findVertexByParams(String label, Map<String, String> params) {
         GraphTraversal<Vertex, Vertex> gt = g.V().hasLabel(label);
         for(String key: params.keySet()) {
             gt = gt.has(key, params.get(key));
         }
-        return gt.next();
+        return gt.next(Integer.MAX_VALUE);
     }
 
     public Map<Object, Object> valuesEdgeById(String id) {
@@ -169,4 +191,5 @@ public class TraversalService {
     public List<Edge> findInEdgeByVertexId(String id) {
         return g.V(Long.parseLong(id)).inE().next(Integer.MAX_VALUE);
     }
+
 }

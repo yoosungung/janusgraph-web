@@ -15,13 +15,13 @@ export default function Sidebar() {
       <ListItem>
         <NavLink to="create">
           <ListIcon as={EditIcon} color="white" />
-          New Task
+          New Candidate
         </NavLink>
       </ListItem>
       <ListItem>
         <NavLink to="profile">
           <ListIcon as={AtSignIcon} color="white" />
-          Profile
+          Profile Analysis
         </NavLink>
       </ListItem>
     </List>

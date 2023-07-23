@@ -123,6 +123,11 @@ public class ClientService {
         );
         arrayNode.add(nodeFactory.objectNode()
                 .put("schema","PropertyKey")
+                .put("name","avatarUrl")
+                .put("dataType", "String")
+        );
+        arrayNode.add(nodeFactory.objectNode()
+                .put("schema","PropertyKey")
                 .put("name","start")
                 .put("dataType", "Date")
         );

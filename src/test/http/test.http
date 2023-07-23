@@ -114,9 +114,23 @@ GET http://localhost:8080/api/traversal/edge/4128/out
 GET http://localhost:8080/api/traversal/edge/35w-36o-6c5-35s/value
 
 ###
+GET http://localhost:8080/api/traversal/vertex?ids=4128,4096,4344
+Content-Type: application/json
+
+
+###
 POST http://localhost:8080/api/client/submit
 
 JanusGraphManagement management = graph.openManagement();
 management.printSchema();
 ###
 POST http://localhost:8080/api/client/schema/init
+###
+POST http://localhost:8080/api/client/schema
+Content-Type: application/json
+
+[{
+  "schema":"PropertyKey",
+  "name":"avatarUrl",
+  "dataType":"String"
+}]
